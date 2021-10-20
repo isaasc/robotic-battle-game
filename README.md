@@ -30,10 +30,7 @@ Para o desenvolvimento deste projeto utilizei as seguintes tecnologias:
 # Clone o repositório
 git clone https://github.com/isaasc/robotic-battle-game
 ```
-```bash
-# Entre no diretório
-cd desafio-1
-```
+
 **Sugestão:** Utilize o [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) para criar um servidor local e executar o projeto.
 <br>
 
