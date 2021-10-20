@@ -39,6 +39,7 @@ document.addEventListener(
     robots.push(robot2);
 
     let colisao = 0;
+    let counter = 0;
 
     //movement
     window.addEventListener("keydown", function (e) {
@@ -104,36 +105,44 @@ document.addEventListener(
         drawRobot(spr.img, spr.posX, spr.posY, spr.width, spr.height);
       }
     }
-    
+
     function collision() {
-      let colisaoCurrent = colisao;
-      //if (colisao == 1) return null;
-      // robot1.posX < robot2.posX + robot2.width &&
-      // robot1.posX + robot1.width > robot2.posX &&
-      // robot1.posY < robot2.posY + robot2.height &&
-      // robot1.posY + robot1.height > robot2.posY
-    
-      if (colisao == colisaoCurrent &&
-        keys["w"] || keys["W"]
+      if (
+        counter == 0 &&
+        colisao < 5 &&
+        robot1.posX < robot2.posX + robot2.width &&
+        robot1.posX + robot1.width > robot2.posX &&
+        robot1.posY < robot2.posY + robot2.height &&
+        robot1.posY + robot1.height > robot2.posY
       ) {
-        for(let i = 0; i < 2; i++) {
+        for (let i = 0; i < 2; i++) {
           life[i] = --life[i];
         }
         colisao++;
-        console.log("life", life);
-        console.log("vezes que colidiram", colisao);
+        counter++;
+        //console.log("life", life);
+        //console.log("vezes que colidiram", colisao);
+      }
+
+      if (
+        (counter == 1 && robot1.posX > robot2.posX + robot2.width) ||
+        robot1.posX + robot1.width < robot2.posX ||
+        robot1.posY > robot2.posY + robot2.height ||
+        robot1.posY + robot1.height < robot2.posY
+      ) {
+        counter = 0;
+        console.log(counter);
       }
     }
 
-    
     function animate() {
       showRobot();
       movePlayer();
       movePlayer2();
+      collision();
       requestAnimationFrame(animate, cnv);
     }
 
     animate();
-
   })()
 );
