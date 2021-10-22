@@ -20,7 +20,7 @@ document.addEventListener(
     // robots declaration
     const image1 = new Image();
     image1.src = "./assets/robotic-dog.png";
-    const robot1 = new drawRobot(image1, 20, 20, 100, 100, 10, life[0], false);
+    const robot1 = new drawRobot(image1, 20, 50, 100, 100, 10, life[0]);
     robots.push(robot1);
     console.log(robot1);
 
@@ -29,12 +29,11 @@ document.addEventListener(
     const robot2 = new drawRobot(
       image2,
       880,
-      380,
+      350,
       100,
       100,
       10,
-      life[1],
-      false
+      life[1]
     );
     robots.push(robot2);
 
@@ -96,16 +95,6 @@ document.addEventListener(
       );
     }
 
-    //Cada vez que acontecer uma colisão entre eles o nível de vida dos dois diminuirá. A vida de cada um foi sorteada e está na let life.
-    //showing
-    function showRobot() {
-      ctx.clearRect(0, 0, cnv.width, cnv.height);
-      for (const i in robots) {
-        const spr = robots[i];
-        drawRobot(spr.img, spr.posX, spr.posY, spr.width, spr.height);
-      }
-    }
-
     function collision() {
       if (
         counter == 0 &&
@@ -120,10 +109,9 @@ document.addEventListener(
         }
         colisao++;
         counter++;
-        //console.log("life", life);
-        //console.log("vezes que colidiram", colisao);
+        console.log("life", life);
+        console.log("vezes que colidiram", colisao);
       }
-
       if (
         (counter == 1 && robot1.posX > robot2.posX + robot2.width) ||
         robot1.posX + robot1.width < robot2.posX ||
@@ -132,13 +120,37 @@ document.addEventListener(
       ) {
         counter = 0;
         console.log(counter);
+        
       }
     }
+
+    function winner() {
+    if(colisao > 5 || colisao != 5) return null;    
+    if (colisao == 5) {
+      colisao++;
+    const winner = Math.max(life[0], life[1]);
+    console.table(`O ganhador é: ${winner}`);
+    } 
+  }
+
+  //showing
+  function showRobot() {
+    ctx.clearRect(0, 0, cnv.width, cnv.height);
+    for (const i in robots) {
+      const spr = robots[i];
+      drawRobot(spr.img, spr.posX, spr.posY, spr.width, spr.height);
+    }
+    ctx.fillStyle = '#fff';
+    ctx.font = '20px serif';
+    ctx.fillText(`Life == ${life[0]}`, 30, 38)
+    ctx.fillText(`Life == ${life[1]}`, 890, 483)
+  }
 
     function animate() {
       showRobot();
       movePlayer();
       movePlayer2();
+      winner();
       collision();
       requestAnimationFrame(animate, cnv);
     }
