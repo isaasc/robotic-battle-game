@@ -6,42 +6,51 @@ document.addEventListener(
     cnv.width = 1000;
     cnv.height = 500;
 
-
     // arays
     const robots = [];
     const keys = [];
-    let life = [];
+    const names = ["ROBOT 1", "ROBOT 2"];
+    const damage = [];
 
-
-    //audios 
+    //audios
     const boom = new Audio("./assets/atari_boom3.wav");
     const finish = new Audio("./assets/victory_sound.wav");
 
-
-    // sorting lifes of robots
+    // sorting damage of robots
     for (let i = 0; i < 2; i++) {
       numeros = Math.floor(Math.random() * 21);
-      life.push(numeros);
+      damage.push(numeros);
     }
+    console.log(`Esses são os danos sorteados: ${damage}`);
 
-
-    // robots declaration 
+    // robots declaration
     const image1 = new Image();
     image1.src = "./assets/robotic-dog.png";
-    const robot1 = new drawRobot(image1, 20, 50, 100, 100, 10, life[0]);
+    const robot1 = new drawRobot(
+      image1,
+      20,
+      70,
+      100,
+      100,
+      10,
+      100,
+      damage[0],
+      names[0]
+    );
     robots.push(robot1);
-    console.log(robot1);
 
     const image2 = new Image();
     image2.src = "./assets/robotic.png";
     const robot2 = new drawRobot(
       image2,
       880,
-      350,
+      330,
       100,
       100,
       10,
-      life[1]
+      100,
+      damage[1],
+      names[1]
     );
     robots.push(robot2);
 
@@ -112,12 +121,14 @@ document.addEventListener(
         robot1.posY < robot2.posY + robot2.height &&
         robot1.posY + robot1.height > robot2.posY
       ) {
-        for (let i = 0; i < 2; i++) {
-          life[i] = --life[i];
+        for (let i = 0; i < 1; i++) {
+          robot1.life = robot1.life - damage[1];
+          robot2.life = robot2.life - damage[0];
+          console.log(`Vida do robô 1: ${robot1.life}`);
+          console.log(`Vida do robô 2: ${robot2.life}`);
         }
         colisao++;
         counter++;
-        console.log("life", life);
         console.log("vezes que colidiram", colisao);
         boom.play();
       }
@@ -128,33 +139,48 @@ document.addEventListener(
         robot1.posY + robot1.height < robot2.posY
       ) {
         counter = 0;
-        console.log(counter);
-        
+      }
+    }
+    let theWinner = "";
+    let empate = "Nenhum, deu empate :)";
+
+    function winner() {
+      if (colisao == 5) {
+        if (damage[0] == damage[1]) {
+          theWinner = empate;
+          console.table(empate);
+        } else {
+          theWinner = Math.max(robot1.life, robot2.life);
+          if (theWinner == robot1.life) {
+            theWinner = names[0];
+          } else {
+            theWinner = names[1];
+          }
+        }
+        colisao++;
+        finish.play();
       }
     }
 
-    function winner() {
-    if(colisao > 5 || colisao != 5) return null;    
-    if (colisao == 5) {
-      colisao++;
-    const winner = Math.max(life[0], life[1]);
-    console.table(`O ganhador é: ${winner}`);
-    finish.play();
-    } 
-  }
+    //showing
+    function showRobot() {
+      if (colisao < 5) {
+        ctx.clearRect(0, 0, cnv.width, cnv.height);
+        for (const i in robots) {
+          const spr = robots[i];
+          drawRobot(spr.img, spr.posX, spr.posY, spr.width, spr.height);
+        }
 
-  //showing
-  function showRobot() {
-    ctx.clearRect(0, 0, cnv.width, cnv.height);
-    for (const i in robots) {
-      const spr = robots[i];
-      drawRobot(spr.img, spr.posX, spr.posY, spr.width, spr.height);
+        ctx.fillStyle = "#fff";
+        ctx.font = "20px arial";
+        ctx.fillText(`Life == ${robot1.life}`, 30, 38);
+        ctx.fillText(`Dano == ${robot1.damage}`, 30, 60);
+        ctx.fillText(`Life == ${robot2.life}`, 880, 463);
+        ctx.fillText(`Dano == ${robot2.damage}`, 880, 483);
+      } else {
+        ctx.fillText(`O GRANDE GANHADOR É == ${theWinner}`, 260, 250);
+      }
     }
-    ctx.fillStyle = '#fff';
-    ctx.font = '20px serif';
-    ctx.fillText(`Life == ${life[0]}`, 30, 38);
-    ctx.fillText(`Life == ${life[1]}`, 890, 483);
-  }
 
     function animate() {
       showRobot();
