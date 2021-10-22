@@ -6,10 +6,17 @@ document.addEventListener(
     cnv.width = 1000;
     cnv.height = 500;
 
+
     // arays
     const robots = [];
     const keys = [];
     let life = [];
+
+
+    //audios 
+    const boom = new Audio("./assets/atari_boom3.wav");
+    const finish = new Audio("./assets/victory_sound.wav");
+
 
     // sorting lifes of robots
     for (let i = 0; i < 2; i++) {
@@ -17,7 +24,8 @@ document.addEventListener(
       life.push(numeros);
     }
 
-    // robots declaration
+
+    // robots declaration 
     const image1 = new Image();
     image1.src = "./assets/robotic-dog.png";
     const robot1 = new drawRobot(image1, 20, 50, 100, 100, 10, life[0]);
@@ -111,6 +119,7 @@ document.addEventListener(
         counter++;
         console.log("life", life);
         console.log("vezes que colidiram", colisao);
+        boom.play();
       }
       if (
         (counter == 1 && robot1.posX > robot2.posX + robot2.width) ||
@@ -130,6 +139,7 @@ document.addEventListener(
       colisao++;
     const winner = Math.max(life[0], life[1]);
     console.table(`O ganhador é: ${winner}`);
+    finish.play();
     } 
   }
 
@@ -142,8 +152,8 @@ document.addEventListener(
     }
     ctx.fillStyle = '#fff';
     ctx.font = '20px serif';
-    ctx.fillText(`Life == ${life[0]}`, 30, 38)
-    ctx.fillText(`Life == ${life[1]}`, 890, 483)
+    ctx.fillText(`Life == ${life[0]}`, 30, 38);
+    ctx.fillText(`Life == ${life[1]}`, 890, 483);
   }
 
     function animate() {
