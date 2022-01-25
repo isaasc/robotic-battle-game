@@ -1,4 +1,4 @@
-# ROBOTIC GAME 💻✨
+# ROBOTIC GAME 💻🐶
 O projeto está sendo realizado para a disciplina de "Web Standards and Game Developing" e consiste em um jogo multiplayer feito com canvas!</br>
 Acompanhe o desenvolvimento do projeto em: [Link Jogo](https://isaasc.github.io/robotic-battle-game/)
 
