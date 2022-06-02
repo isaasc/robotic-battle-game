@@ -12,7 +12,7 @@ Acompanhe o desenvolvimento do projeto em: [Link Jogo](https://isaasc.github.io/
 
 * Canvas;
 * Interação com o usuário através do teclado;
-* ...
+* Colisão entre objetos.
 
 ## 🛠 Tecnologias
 Para o desenvolvimento deste projeto utilizei as seguintes tecnologias:
