@@ -1,6 +1,6 @@
 # ROBOTIC GAME 💻🐶
-O projeto está sendo realizado para a disciplina de "Web Standards and Game Developing" e consiste em um jogo multiplayer feito com canvas!</br>
-Acompanhe o desenvolvimento do projeto em: [Link Jogo](https://isaasc.github.io/robotic-battle-game/)
+Projeto realizado para a disciplina de "Web Standards and Game Developing" e consiste em um jogo multiplayer feito com canvas!</br>
+Bora jogar?: [Link Jogo](https://isaasc.github.io/robotic-battle-game/)
 
 ### Proposta:
 * Fazer um arena delimitada e desenhada onde dois “robôs” se movimentam por ela;
@@ -26,7 +26,7 @@ Para o desenvolvimento deste projeto utilizei as seguintes tecnologias:
 
 ```bash
 # Clone o repositório
-git clone https://github.com/isaasc/robotic-battle-game
+git clone https://github.com/isaasc/robotic-battle-game.git
 ```
 
 **Sugestão:** Utilize o [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) para criar um servidor local e executar o projeto.
